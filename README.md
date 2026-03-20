@@ -1,2 +1,0 @@
-# bash-utils
-Bash scripts

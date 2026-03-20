@@ -1,0 +1,141 @@
+#!/usr/bin/env bash
+
+apply_waybar() {
+    local theme="$1"
+    local theme_file="$HOME/.config/waybar/colors.css"
+
+    if [[ -f "$theme_file" ]]; then
+        echo "@import 'themes/$theme.css';" > "$theme_file"
+        sleep 0.2
+        if pgrep -x "waybar" >/dev/null; then
+            pkill waybar && setsid -f waybar >/dev/null 2>&1
+        fi
+    fi
+}
+
+apply_mako() {
+    local theme="$1"
+    local theme_file="$HOME/.config/mako/colors.ini"
+
+    if [[ -f "$theme_file" ]]; then
+        echo "include=~/.config/mako/themes/$theme.ini" > "$theme_file"
+        sleep 0.2
+        makoctl reload
+    fi 
+}
+
+apply_kitty() {
+    local theme="$1"
+    local theme_file="$HOME/.config/kitty/colors.conf"
+
+    if [[ -f "$theme_file" ]]; then
+        echo "include themes/$theme.conf" > "$theme_file"
+        sleep 0.2
+        killall -SIGUSR1 kitty
+    fi 
+}
+
+apply_rofi() {
+    local theme="$1"
+    local theme_file="$HOME/.config/rofi/colors.rasi"
+
+    if [[ -f "$theme_file" ]]; then
+        echo "@import 'themes/$1.rasi'" > "$theme_file"
+    fi 
+}
+
+apply_hyprland() {
+    local theme="$1"
+    local theme_file="$HOME/.config/hypr/themes/colors.conf"
+
+    if [[ -f "$theme_file" ]]; then
+        echo "source = ~/.config/hypr/themes/$1.conf" > "$theme_file"
+    fi
+}
+
+apply_eza() {
+    local theme="$1"
+    local theme_file="$HOME/.config/eza/theme.yml"
+
+    if [ -f "$theme_file" ]; then
+        [ -d "$HOME/.config/eza/themes" ] && cat < "$HOME/.config/eza/themes/$1.yml" > "$theme_file"
+    fi
+}
+
+apply_neovim() {
+    local theme="$1"
+    local theme_file="$HOME/.config/nvim/current_theme.txt"
+
+    if [ -f "$theme_file" ]; then
+      # cat cmd doesn't work here but echo does for this case
+      echo "$theme" > "$theme_file"
+    fi
+}
+
+case ${1:-} in
+    "blacklotus")
+        apply_waybar "blacklotus"
+        apply_mako "blacklotus"
+        apply_kitty "blacklotus"
+        apply_rofi "blacklotus"
+        apply_hyprland "blacklotus"
+        apply_eza "blacklotus"
+        ;;
+    "tokyonight")
+        apply_waybar "tokyonight"
+        apply_mako "tokyonight"
+        apply_kitty "tokyonight"
+        apply_rofi "tokyonight"
+        apply_hyprland "tokyonight"
+        apply_eza "tokyonight"
+        apply_neovim "tokyonight"
+        ;;
+    "rose-pine")
+        apply_waybar "rose-pine"
+        apply_mako "rose-pine"
+        apply_kitty "rose-pine"
+        apply_rofi "rose-pine"
+        apply_hyprland "rose-pine"
+        apply_eza "rose-pine"
+        apply_neovim "rose-pine"
+        ;;
+    "catppuccin-mocha")
+        apply_waybar "catppuccin-mocha"
+        apply_mako "catppuccin-mocha"
+        apply_kitty "catppuccin-mocha"
+        apply_rofi "catppuccin-mocha"
+        apply_hyprland "catppuccin-mocha"
+        apply_eza "catppuccin-mocha"
+        apply_neovim "catppuccin-mocha"
+        ;;
+    "kanagawa")
+        apply_waybar "kanagawa"
+        apply_mako "kanagawa"
+        apply_kitty "kanagawa"
+        apply_rofi "kanagawa"
+        apply_hyprland "kanagawa"
+        apply_neovim "kanagawa"
+        ;;
+    "dracula")
+        apply_waybar "dracula"
+        apply_mako "dracula"
+        apply_kitty "dracula"
+        apply_rofi "dracula"
+        apply_hyprland "dracula"
+        apply_eza "dracula"
+        apply_neovim "dracula"
+        ;;
+    "gruvbox-dark")
+        apply_waybar "gruvbox-dark"
+        apply_mako "gruvbox-dark"
+        apply_kitty "gruvbox-dark"
+        apply_rofi "gruvbox-dark"
+        apply_hyprland "gruvbox-dark"
+        apply_eza "gruvbox-dark"
+        apply_neovim "gruvbox"
+        ;;
+    *)
+        echo "Usage: $0 [tokyonight|rose-pine|catppuccin-mocha]"
+        exit 1
+        ;;
+esac
