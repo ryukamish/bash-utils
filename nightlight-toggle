@@ -22,10 +22,10 @@ hyprland_nightlight_toggle() {
 
 niri_nightlight_toggle() {
   if pgrep -x wlsunset; then
-    killall wlsunset
+    pkill wlsunset
     notify-send " Daylight screen temperature"
   else
-    setsid -f wlsunset -t 4500
+    setsid -f wlsunset -l 23 -L 85
     notify-send " Nightlight screen temperature"
   fi
 }
