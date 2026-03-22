@@ -25,7 +25,7 @@ niri_nightlight_toggle() {
     pkill wlsunset
     notify-send " Daylight screen temperature"
   else
-    setsid -f wlsunset -l 23.4 -L 85.3
+    setsid -f wlsunset -T 4500
     notify-send " Nightlight screen temperature"
   fi
 }
