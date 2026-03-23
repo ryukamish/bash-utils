@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-menu_args=$(printf '%b' 'Search Files\nInstall\nWallpaper\nRecord Screen\nRemove\nUpdate' | rofi -dmenu -p "Options: " -i -theme-str "window {width: 20em;}")
+menu_args=$(printf '%b' 'Search Files\nInstall\nWallpaper\nRecord Screen\nRemove PKG\nSystem Update' | rofi -dmenu -p "Options: " -i -theme-str "window {width: 20em;}")
 
 case "$menu_args" in
 *Files)
@@ -17,13 +17,8 @@ case "$menu_args" in
     ;;
   esac
   ;;
-*Remove)
-  remove_args=$(printf '%b' 'Packages\nTUI' | rofi -dmenu -p "Remove: " -i)
-  case "$remove_args" in
-  *Packages)
-    ~/.local/bin/terminal-floating pkg-remove
-    ;;
-  esac
+*Remove*)
+  ~/.local/bin/terminal-floating pkg-remove
   ;;
 
 *Wallpaper)
