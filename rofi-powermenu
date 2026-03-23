@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-power_args=$(printf '%b' ' Lock\nLogout\n Restart\n󰒲 Suspend\n󰋊 Hibernate\n󰚦 Shutdown' |
-  rofi -dmenu -p "󰐥 " -i -theme-str 'window {width: 12em; padding: 2px; height: 16em;}')
+power_args=$(printf '%b' 'Lock\nLogout\nRestart\nSuspend\nHibernate\nShutdown' |
+  rofi -dmenu -p "" -i -theme-str 'window {width: 12em; padding: 2px; height: 16em;}')
 
 case "$power_args" in
 *Lock)
